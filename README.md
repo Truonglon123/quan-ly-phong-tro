@@ -1,58 +1,360 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Quản Lý Phòng Trọ
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Hệ thống **quản lý phòng trọ** được xây dựng với **Laravel** và **Filament**, hỗ trợ chủ trọ quản lý phòng, người thuê, hợp đồng, tiền thuê, điện nước và các khoản thu một cách tập trung.
 
-## About Laravel
+Dự án hướng tới việc đơn giản hóa quy trình quản lý khu trọ, hạn chế việc theo dõi thủ công bằng Excel hoặc sổ sách.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tính năng
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Quản lý khu trọ
 
-## Learning Laravel
+- Quản lý nhiều khu trọ
+- Quản lý thông tin khu trọ
+- Quản lý dãy phòng
+- Theo dõi tổng số phòng
+- Theo dõi phòng đang trống / đang thuê
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Quản lý phòng
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Thêm, sửa, xóa phòng
+- Quản lý số phòng
+- Quản lý giá thuê
+- Trạng thái phòng:
+    - Trống
+    - Đang thuê
+    - Đang sửa chữa
+    - Đã đặt
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- Quản lý diện tích và thông tin phòng
+- Theo dõi người đang thuê phòng
 
-## Agentic Development
+### Quản lý người thuê
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- Quản lý thông tin người thuê
+- Họ tên
+- Số điện thoại
+- CCCD/CMND
+- Ngày sinh
+- Địa chỉ
+- Thông tin liên hệ
+- Quản lý người thuê chính / thành viên ở cùng
+
+### Quản lý hợp đồng
+
+- Tạo hợp đồng thuê phòng
+- Ngày bắt đầu
+- Ngày kết thúc
+- Tiền cọc
+- Giá thuê
+- Số người ở
+- Theo dõi trạng thái hợp đồng
+- Gia hạn hợp đồng
+- Thanh lý hợp đồng
+
+### Quản lý điện nước
+
+- Ghi chỉ số điện
+- Ghi chỉ số nước
+- Theo dõi chỉ số cũ / mới
+- Tự động tính lượng tiêu thụ
+- Tính tiền điện
+- Tính tiền nước
+- Lưu lịch sử chỉ số theo từng phòng
+
+### Quản lý hóa đơn
+
+Hệ thống hỗ trợ tổng hợp các khoản phải thu của phòng:
+
+- Tiền phòng
+- Tiền điện
+- Tiền nước
+- Phí dịch vụ
+- Phí gửi xe
+- Các khoản phụ thu khác
+
+Có thể theo dõi trạng thái:
+
+- Chưa thanh toán
+- Đã thanh toán
+- Thanh toán một phần
+- Quá hạn
+
+---
+
+## 🛠️ Công nghệ sử dụng
+
+| Công nghệ          | Mục đích            |
+| ------------------ | ------------------- |
+| PHP                | Ngôn ngữ lập trình  |
+| Laravel            | Backend Framework   |
+| Filament           | Admin Panel         |
+| Livewire           | Tương tác giao diện |
+| MySQL / PostgreSQL | Database            |
+| Tailwind CSS       | UI                  |
+| Vite               | Frontend build tool |
+
+---
+
+## 📋 Yêu cầu hệ thống
+
+Trước khi cài đặt, đảm bảo môi trường đã có:
+
+- PHP >= 8.2
+- Composer
+- Node.js >= 20
+- pnpm / npm
+- MySQL hoặc PostgreSQL
+- Git
+
+Kiểm tra phiên bản:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php -v
+composer -V
+node -v
+npm -v
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Cài đặt
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clone repository
 
-## Code of Conduct
+```bash
+git clone https://github.com/your-username/quan-ly-phong-tro.git
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+cd quan-ly-phong-tro
+```
 
-## Security Vulnerabilities
+### 2. Cài đặt PHP dependencies
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer install
+```
 
-## License
+### 3. Cài đặt frontend dependencies
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+npm install
+```
+
+Hoặc:
+
+```bash
+pnpm install
+```
+
+### 4. Tạo file `.env`
+
+```bash
+cp .env.example .env
+```
+
+### 5. Generate application key
+
+```bash
+php artisan key:generate
+```
+
+### 6. Cấu hình database
+
+Mở file `.env` và cập nhật thông tin database:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=quan_ly_phong_tro
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 7. Chạy migration
+
+```bash
+php artisan migrate
+```
+
+Nếu project có Seeder:
+
+```bash
+php artisan migrate --seed
+```
+
+### 8. Build frontend
+
+```bash
+npm run build
+```
+
+Trong quá trình development:
+
+```bash
+npm run dev
+```
+
+### 9. Chạy Laravel
+
+```bash
+php artisan serve
+```
+
+Sau đó truy cập:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## Filament Admin Panel
+
+Sau khi chạy project, truy cập:
+
+```text
+http://127.0.0.1:8000/admin
+```
+
+Tài khoản quản trị có thể được tạo bằng:
+
+```bash
+php artisan make:filament-user
+```
+
+Sau đó nhập:
+
+```text
+Name:
+Email:
+Password:
+```
+
+---
+
+## Cấu trúc dự án
+
+Cấu trúc chính của Laravel project:
+
+```text
+quan-ly-phong-tro/
+├── app/
+│   ├── Filament/
+│   │   ├── Resources/
+│   │   ├── Pages/
+│   │   └── Widgets/
+│   │
+│   ├── Models/
+│   ├── Policies/
+│   └── Services/
+│
+├── database/
+│   ├── factories/
+│   ├── migrations/
+│   └── seeders/
+│
+├── resources/
+│   ├── css/
+│   ├── js/
+│   └── views/
+│
+├── routes/
+│   ├── web.php
+│   └── console.php
+│
+├── public/
+├── storage/
+├── tests/
+├── .env.example
+├── artisan
+├── composer.json
+├── package.json
+└── README.md
+```
+
+---
+
+## Quy trình quản lý
+
+Quy trình sử dụng cơ bản:
+
+```text
+Khu trọ
+   ↓
+Tạo phòng
+   ↓
+Thêm người thuê
+   ↓
+Tạo hợp đồng
+   ↓
+Ghi chỉ số điện / nước
+   ↓
+Tạo hóa đơn
+   ↓
+Thu tiền
+   ↓
+Theo dõi doanh thu
+```
+
+---
+
+## Các lệnh Artisan thường dùng
+
+```bash
+# Chạy server
+php artisan serve
+
+# Migration
+php artisan migrate
+
+# Reset database
+php artisan migrate:fresh
+
+# Reset database + seed
+php artisan migrate:fresh --seed
+
+# Tạo Filament user
+php artisan make:filament-user
+
+# Clear cache
+php artisan optimize:clear
+
+# Cache config
+php artisan config:cache
+
+# Cache routes
+php artisan route:cache
+
+# Format code
+./vendor/bin/pint
+
+# Chạy test
+php artisan test
+```
+
+---
+
+## Environment Variables
+
+Các biến môi trường quan trọng:
+
+```env
+APP_NAME="Quản Lý Phòng Trọ"
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+```
+
+> Không commit file `.env` lên repository.
+
+---

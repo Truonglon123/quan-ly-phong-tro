@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\ContractStatus;
+use App\Enums\WaterBillingMethod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +38,8 @@ class Contract extends Model
             'max_occupants' => 'integer',
             'room_id' => 'integer',
             'tenant_id' => 'integer',
+            'water_billing_method' => WaterBillingMethod::class,
+            'status' => ContractStatus::class,
         ];
     }
 

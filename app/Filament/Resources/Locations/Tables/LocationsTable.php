@@ -15,12 +15,23 @@ class LocationsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Tên khu trọ')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('address')
-                    ->searchable(),
+                    ->label('Địa chỉ')
+                    ->searchable()
+                    ->placeholder('Chưa có'),
                 TextColumn::make('user.name')
-                    ->searchable(),
+                    ->label('Chủ khu trọ')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('rooms_count')
+                    ->label('Số phòng')
+                    ->counts('rooms')
+                    ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Ngày tạo')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\RoomStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +27,7 @@ class Room extends Model
             'default_rent' => 'decimal:2',
             'max_occupants' => 'integer',
             'location_id' => 'integer',
+            'status' => RoomStatus::class,
         ];
     }
 

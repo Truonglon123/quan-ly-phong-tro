@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Contracts\Schemas;
 use App\Enums\ContractStatus;
 use App\Enums\WaterBillingMethod;
 use App\Models\Room;
+use App\Models\Tenant;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -60,7 +61,10 @@ class ContractForm
                 Select::make('tenant_id')
                     ->label('Người đứng tên')
                     ->relationship('tenant', 'full_name')
-                    ->searchable()
+                    ->getOptionLabelFromRecordUsing(
+                        fn(Tenant $record) => "{$record->full_name} - {$record->phone} - CCCD ..." . substr($record->identity_number, -4)
+                    )
+                    ->searchable(['full_name', 'phone', 'identity_number'])
                     ->preload()
                     ->required(),
 

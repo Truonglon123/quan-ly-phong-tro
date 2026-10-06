@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\WaterBillingMethod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +27,7 @@ class WaterRate extends Model
             'effective_from' => 'date',
             'effective_to' => 'date',
             'location_id' => 'integer',
+            'billing_method' => WaterBillingMethod::class,
         ];
     }
 

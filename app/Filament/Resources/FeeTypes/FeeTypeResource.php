@@ -5,6 +5,7 @@ namespace App\Filament\Resources\FeeTypes;
 use App\Filament\Resources\FeeTypes\Pages\CreateFeeType;
 use App\Filament\Resources\FeeTypes\Pages\EditFeeType;
 use App\Filament\Resources\FeeTypes\Pages\ListFeeTypes;
+use App\Filament\Resources\FeeTypes\RelationManagers\FeeRatesRelationManager;
 use App\Filament\Resources\FeeTypes\Schemas\FeeTypeForm;
 use App\Filament\Resources\FeeTypes\Tables\FeeTypesTable;
 use App\Models\FeeType;
@@ -18,7 +19,7 @@ class FeeTypeResource extends Resource
 {
     protected static ?string $model = FeeType::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Swatch;
 
     protected static ?string $recordTitleAttribute = 'feeType';
 
@@ -48,7 +49,7 @@ class FeeTypeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            FeeRatesRelationManager::class,
         ];
     }
 

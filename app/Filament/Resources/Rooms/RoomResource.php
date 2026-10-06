@@ -6,6 +6,7 @@ use App\Filament\Resources\Rooms\Pages\CreateRoom;
 use App\Filament\Resources\Rooms\Pages\EditRoom;
 use App\Filament\Resources\Rooms\Pages\ListRooms;
 use App\Filament\Resources\Rooms\RelationManagers\AssetsRelationManager;
+use App\Filament\Resources\Rooms\RelationManagers\MeterReadingsRelationManager;
 use App\Filament\Resources\Rooms\Schemas\RoomForm;
 use App\Filament\Resources\Rooms\Tables\RoomsTable;
 use App\Models\Room;
@@ -43,6 +44,7 @@ class RoomResource extends Resource
     {
         return [
             AssetsRelationManager::class,
+            MeterReadingsRelationManager::class,
         ];
     }
 

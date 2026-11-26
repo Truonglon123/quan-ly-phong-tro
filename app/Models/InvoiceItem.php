@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceItemType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,7 +26,8 @@ class InvoiceItem extends Model
     {
         return [
             'invoice_id' => 'integer',
-            'quantity' => 'integer',
+            'quantity' => 'decimal:3',
+            'item_type' => InvoiceItemType::class,
             'unit_price' => 'decimal:2',
             'amount' => 'decimal:2',
             'meter_reading_id' => 'integer',
@@ -46,5 +48,16 @@ class InvoiceItem extends Model
     public function feeRate(): BelongsTo
     {
         return $this->belongsTo(FeeRate::class, 'fee_rate_id');
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (InvoiceItem $item) {
+            $item->amount = round((float) $item->quantity * (float) $item->unit_price, 2);
+        });
+
+        static::saved(fn(InvoiceItem $item) => $item->invoice?->recalculateSubtotal());
+
+        static::deleted(fn(InvoiceItem $item) => $item->invoice?->recalculateSubtotal());
     }
 }

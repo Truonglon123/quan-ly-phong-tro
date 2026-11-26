@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Enums\InvoiceStatus;
+
 class Invoice extends Model
 {
     use HasFactory, SoftDeletes;
@@ -35,6 +37,7 @@ class Invoice extends Model
             'discount' => 'decimal:2',
             'total_amount' => 'decimal:2',
             'contract_id' => 'integer',
+            'status' => InvoiceStatus::class,
         ];
     }
 
@@ -51,5 +54,27 @@ class Invoice extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class, 'invoice_id');
+    }
+
+    protected $attributes = [
+        'subtotal' => 0,
+        'discount' => 0,
+        'total_amount' => 0,
+    ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (Invoice $invoice) {
+            $invoice->total_amount = max(
+                0,
+                (float) $invoice->subtotal - (float) $invoice->discount
+            );
+        });
+    }
+
+    public function recalculateSubtotal(): void
+    {
+        $this->subtotal = $this->invoiceItems()->sum('amount');
+        $this->save();
     }
 }

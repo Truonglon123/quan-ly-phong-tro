@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\RoomStatus;
+use App\Enums\ContractStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,5 +50,28 @@ class Room extends Model
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class, 'room_id');
+    }
+
+    public function syncStatus(): void
+    {
+        if (in_array($this->status, [RoomStatus::Maintenance, RoomStatus::Inactive], true)) {
+            return;
+        }
+
+        $hasActiveContract = $this->contracts()
+            ->where('status', ContractStatus::Active)
+            ->exists();
+
+        if ($hasActiveContract) {
+            $newStatus = RoomStatus::Occupied;
+        } elseif ($this->status === RoomStatus::Reserved) {
+            return;
+        } else {
+            $newStatus = RoomStatus::Available;
+        }
+
+        if ($this->status !== $newStatus) {
+            $this->update(['status' => $newStatus]);
+        }
     }
 }
